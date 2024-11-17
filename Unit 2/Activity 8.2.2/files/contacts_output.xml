@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<contactlist>
+    <contact id="c001">
+        <name>Jose</name>
+        <surname>García</surname>
+        <emails/>
+        <phones>
+            <phone>jrgarcia@iesmarenostrum.com</phone>
+            <phone>616116611</phone>
+        </phones>
+    </contact>
+    <contact id="c002">
+        <name>Antonio</name>
+        <surname>Luque</surname>
+        <emails/>
+        <phones>
+            <phone>mymail@protonmail.com</phone>
+            <phone>antonio@iesmarenostrum.com</phone>
+            <phone>626226622</phone>
+            <phone>965223344</phone>
+        </phones>
+    </contact>
+    <contact id="c003">
+        <name>Ana</name>
+        <surname>Pérez</surname>
+        <emails/>
+        <phones>
+            <phone>616116611</phone>
+            <phone>965119192</phone>
+        </phones>
+    </contact>
+</contactlist>

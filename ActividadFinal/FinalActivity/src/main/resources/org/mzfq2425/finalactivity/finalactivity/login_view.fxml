@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="285.0" maxWidth="605.0" minHeight="285.0" minWidth="605.0" prefHeight="285.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mzfq2425.finalactivity.finalactivity.LoginViewController">
+   <children>
+      <GridPane layoutX="1.0" layoutY="1.0" prefHeight="285.0" prefWidth="604.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="31.0" prefWidth="113.0" text="Welcome!">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="label_msg" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <GridPane maxHeight="100.0" maxWidth="450.0" minHeight="100.0" minWidth="450.0" prefHeight="100.0" prefWidth="450.0" GridPane.rowIndex="1">
+              <columnConstraints>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="155.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="460.0" minWidth="10.0" prefWidth="445.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="label_user" text="User:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label fx:id="label_password" text="Password:" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="field_pwd" promptText="Please, enter the password of the seller" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font></PasswordField>
+                  <TextField fx:id="field_user" promptText="Please, enter the CIF of the seller" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
+               </children>
+            </GridPane>
+            <Button fx:id="btn_login" mnemonicParsing="false" onAction="#checkForUser" text="Login" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="8.0" left="30.0" right="30.0" top="8.0" />
+               </padding>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
