@@ -1,37 +1,49 @@
 package org.mzfq2425.finalactivity.finalactivity;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import org.mzfq2425.finalactivity.finalactivity.dao.SellersDAO;
 import org.mzfq2425.finalactivity.finalactivity.model.Sellers;
 
-import javafx.scene.control.TextField;
-
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AppViewController {
 
-    @FXML private TextField tf_cif;
-    @FXML private TextField tf_name;
-    @FXML private TextField tf_business;
-    @FXML private TextField tf_phone;
-    @FXML private TextField tf_email;
-    @FXML private TextField tf_password;
-    @FXML private Label label_msg;
+    @FXML
+    private TextField tf_cif;
+    @FXML
+    private TextField tf_name;
+    @FXML
+    private TextField tf_business;
+    @FXML
+    private TextField tf_phone;
+    @FXML
+    private TextField tf_email;
+    @FXML
+    private TextField tf_password;
+    @FXML
+    private Label label_msg;
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("^\\d{3}-\\d{3}-\\d{3}$");
+
     private Sellers seller;
 
-    static SessionFactory sessionFactory = null;
-    static Session session = null;
-
     @FXML
-    public void setSeller(Sellers newSeller) {
-        seller = newSeller;
-        resetSeller();
+    public void setSeller(Sellers seller) {
+        tf_cif.setText(seller.getCif());
+        tf_name.setText(seller.getName());
+        tf_business.setText(seller.getBusinessName());
+        tf_phone.setText(seller.getPhone());
+        tf_email.setText(seller.getEmail());
+        tf_password.setText(seller.getPlainPassword());
+        this.seller = seller;
     }
 
     // function to reset the values of the seller to the current data
@@ -84,7 +96,7 @@ public class AppViewController {
 
                 if (!checkValues(fieldName, value, maxChar, checkNumber, checkMail, !canBeNull)) {
                     //border red if failed at certain field
-                    switch(i){
+                    switch (i) {
                         case 0:
                             tf_name.setStyle("-fx-border-color: red; -fx-border-width: 2px");
                             break;
@@ -107,19 +119,68 @@ public class AppViewController {
                 i++;
             }
 
-            //updating the seller with the new values (and values like cif / seller that can't change)
-            updateSeller(new Sellers(seller.getSellerId(), seller.getCif(), name, business, phone, email, password, hashUtil.hashPassword(password)));
+            ButtonType action = createDialog("Are you sure you'd like to modify the seller's?");
+
+            if (action == ButtonType.YES) {
+                //updating the seller with the new values (and values like cif / seller that can't change)
+                Sellers res = SellersDAO.updateSeller(new Sellers(seller.getSellerId(), seller.getCif(), name, business, phone, email, password, hashUtil.hashPassword(password)));
+                if(res!=null){
+                    showMsg("Seller successfully updated", "green");
+                    setSeller(res);
+                }else{
+                    showMsg("Seller couldn't be updated, please try again later", "red");
+                }
+            } else if (action == ButtonType.NO || action == ButtonType.CANCEL) {
+                //accion cancelada
+            } else {
+                System.out.println("Accion no controlada: " + action.toString());
+            }
         }
+    }
+
+    //function to call a dialog to confirm the update operation
+    public ButtonType createDialog(String msgDialog) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, msgDialog, ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        return alert.getResult();
     }
 
     //function to call the exit of the app
     @FXML
-    public void callExit(){
+    public void callExit() {
         System.exit(0);
     }
 
+    //function to call the exit of the app
+    @FXML
+    public void callOfferView() {
+        changeScene(seller);
+    }
+
+    //function to change the Scene
+    public void changeScene(Sellers seller){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("offer_view.fxml"));
+            Pane appView = fxmlLoader.load();
+
+            OfferViewController offerViewController = fxmlLoader.getController();
+            offerViewController.setSeller(seller);
+
+            Stage stage = (Stage) tf_cif.getScene().getWindow();
+
+            Scene scene = new Scene(appView);
+            stage.setScene(scene);
+            stage.setTitle("Offer View");
+
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     //function to delete styles from inputs
-    public void setStyleNull(){
+    public void setStyleNull() {
         tf_name.setStyle(null);
         tf_business.setStyle(null);
         tf_phone.setStyle(null);
@@ -168,33 +229,13 @@ public class AppViewController {
         }
     }
 
-    //function to update the seller with the values entered
-    public void updateSeller(Sellers seller){
-        try {
-            openCon();
-            session.beginTransaction();
-            session.update(seller);
-            showMsg("Seller successfully updated","green");
-            session.getTransaction().commit();
-            setSeller(seller);
-        } catch (Exception e) {
-            showMsg("Seller couldn't be updated, please try again later", "red");
-            System.out.println(e.getMessage());
-            if (session.getTransaction() != null) {
-                session.getTransaction().rollback();
-            }
-        }finally{
-            closeCon();
-        }
-    }
-
     //function to check all values are ok
     public boolean checkValues(String field, String check, int maxChar, boolean checkNumber, boolean checkMail, boolean checkEmpty) {
         if (check == null || check.trim().isEmpty()) {
             if (checkEmpty) {
                 showMsg("Please, fill in the empty field: " + field, "red");
                 return false;
-            }else{
+            } else {
                 //in case theres a nullable field
                 return true;
             }
@@ -206,8 +247,8 @@ public class AppViewController {
         }
 
         if (checkNumber) {
-            String phoneRegex = "^\\d{3}-\\d{3}-\\d{3}$"; // check format of phone 000-000-000
-            if (!check.matches(phoneRegex)) {
+            Matcher matcher = PHONE_PATTERN.matcher(check);
+            if (!matcher.matches()) {
                 showMsg("The phone number is not in the valid format (000-000-000).", "red");
                 return false;
             }
@@ -225,44 +266,9 @@ public class AppViewController {
     }
 
     //function to show the user a message, color indicates the type of message (red error, green success, black info)
-    public void showMsg(String msg, String color){
+    public void showMsg(String msg, String color) {
+        label_msg.setVisible(true);
         label_msg.setText(msg);
         label_msg.setStyle("-fx-text-fill: " + color + ";");
-    }
-
-    //function to open connection
-    public static void openCon(){
-        try {
-            sessionFactory = new Configuration().configure("hibernate.cfg.xml")
-                    .addAnnotatedClass(Sellers.class)
-                    .buildSessionFactory();
-
-            session = sessionFactory.openSession();
-
-            if (session != null) {
-                System.out.println("Session successfully opened!");
-            } else {
-                System.out.println("Error opening session!");
-            }
-        } catch (Exception e) {
-            System.err.println("Error initializing Hibernate: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-    //function to close connection
-    public static void closeCon(){
-        try {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-            if (sessionFactory != null && !sessionFactory.isClosed()) {
-                sessionFactory.close();
-            }
-        } catch (Exception e) {
-            System.err.println("Error closing connection: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 }

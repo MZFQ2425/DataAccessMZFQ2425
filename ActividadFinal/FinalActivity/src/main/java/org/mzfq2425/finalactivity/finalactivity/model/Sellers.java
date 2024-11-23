@@ -47,7 +47,6 @@ public class Sellers {
         this.password = password;
     }
 
-    // Getters y setters
     public int getSellerId() {
         return sellerId;
     }

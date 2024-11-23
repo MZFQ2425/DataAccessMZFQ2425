@@ -5,9 +5,12 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/FinalActivity</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">admin</property>
-
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="org.mzfq2425.finalactivity.finalactivity.model.Sellers"/>
+        <mapping class="org.mzfq2425.finalactivity.finalactivity.model.Seller_products"/>
+        <mapping class="org.mzfq2425.finalactivity.finalactivity.model.Categories"/>
+        <mapping class="org.mzfq2425.finalactivity.finalactivity.model.Products"/>
     </session-factory>
 </hibernate-configuration>

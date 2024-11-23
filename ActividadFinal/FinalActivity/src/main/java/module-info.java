@@ -6,6 +6,7 @@ module org.mzfq2425.finalactivity.finalactivity {
     requires org.hibernate.orm.core;
     requires java.naming;
     requires java.sql;
+    requires org.postgresql.jdbc;
 
     opens org.mzfq2425.finalactivity.finalactivity to javafx.fxml;
     opens org.mzfq2425.finalactivity.finalactivity.model to org.hibernate.orm.core;

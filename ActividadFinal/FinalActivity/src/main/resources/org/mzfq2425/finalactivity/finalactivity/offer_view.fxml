@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.effect.DropShadow?>
+<AnchorPane maxHeight="572.0" maxWidth="786.0" minHeight="572.0" minWidth="786.0" prefHeight="572.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mzfq2425.finalactivity.finalactivity.OfferViewController">
+   <children>
+      <GridPane fx:id="menuLeft" prefHeight="572.0" prefWidth="136.0" style="-fx-background-color: ffffff;">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="img_user" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#callAppView" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/user.png" />
+               </image>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor></ImageView>
+            <ImageView fx:id="img_offer" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@icons/boxSearch.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                <effect>
+                    <DropShadow color="lightsteelblue" radius="5" offsetX="2" offsetY="2" spread="0.5" />
+                </effect>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@icons/boxSell.png" />
+               </image></ImageView>
+            <ImageView fx:id="img_exit" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#callExit" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@icons/exit.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
+         </children>
+      </GridPane>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="135.0" prefHeight="78.0" prefWidth="652.0" text="Add offer">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="218.0" layoutY="114.0" prefHeight="402.0" prefWidth="486.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="303.0" minWidth="10.0" prefWidth="209.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="534.0" minWidth="10.0" prefWidth="407.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="75.0" minHeight="75.0" prefHeight="75.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="75.0" minHeight="75.0" prefHeight="75.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="75.0" minHeight="75.0" prefHeight="75.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="75.0" minHeight="75.0" prefHeight="75.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="106.0" minHeight="5.0" prefHeight="24.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="label_cif" text="Product:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="label_name" text="From:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="label_email" text="To:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="label_password" text="Discount" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tf_disc" promptText="Discount of the product" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label fx:id="label_msg" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="cb_product" maxWidth="345.0" minWidth="345.0" prefWidth="345.0" promptText="Select the product to add an offer" GridPane.columnIndex="1" />
+             <DatePicker fx:id="dp_from" maxWidth="345.0" minWidth="345.0" onAction="#firstDateSelected" prefWidth="345.0" promptText="Select a date to start the duration of the offer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+             <DatePicker fx:id="dp_to" maxWidth="345.0" minWidth="345.0" onAction="#secondDateSelected" prefWidth="345.0" promptText="Select a date to end the duration of the offer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+              <Button fx:id="btn_add" alignment="CENTER" mnemonicParsing="false" onAction="#checkOffer" text="Add" textAlignment="CENTER" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <font>
+                      <Font size="14.0" />
+                  </font>
+                  <padding>
+                      <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                  </padding>
+              </Button>
+             <ImageView fx:id="img_info" fitHeight="50.0" fitWidth="30.0" onMouseClicked="#createDialogInfo" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
+                <image>
+                   <Image url="@icons/info.png" />
+                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+             </ImageView>
+          </children>
+       </GridPane>
+    </children>
+ </AnchorPane>

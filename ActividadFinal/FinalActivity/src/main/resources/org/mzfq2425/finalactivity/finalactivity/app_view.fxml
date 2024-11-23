@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.effect.DropShadow?>
 <AnchorPane maxHeight="572.0" maxWidth="786.0" minHeight="572.0" minWidth="786.0" prefHeight="572.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mzfq2425.finalactivity.finalactivity.AppViewController">
    <children>
       <GridPane fx:id="menuLeft" prefHeight="572.0" prefWidth="136.0" style="-fx-background-color: ffffff;">
@@ -20,14 +21,24 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="img_user" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icons/user.png" />
-               </image></ImageView>
-            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                <effect>
+                    <DropShadow color="lightsteelblue" radius="5" offsetX="2" offsetY="2" spread="0.5" />
+                </effect>
+            </ImageView>
+            <ImageView fx:id="img_offer" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#callOfferView" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
                   <Image url="@icons/boxSearch.png" />
-               </image></ImageView>
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
             <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                <image>
                   <Image url="@icons/boxSell.png" />
