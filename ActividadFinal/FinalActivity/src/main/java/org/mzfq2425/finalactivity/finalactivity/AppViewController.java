@@ -26,12 +26,15 @@ public class AppViewController {
     @FXML
     private TextField tf_email;
     @FXML
+    private TextField tf_url;
+    @FXML
     private TextField tf_password;
     @FXML
     private Label label_msg;
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^\\d{3}-\\d{3}-\\d{3}$");
+    private static final Pattern URL_PATTERN = Pattern.compile("^https?:\\/\\/(www\\.)?[\\w-]+(\\.[\\w-]+)+(\\.[a-z]{2,6})(\\/[\\w-]*)*\\/?$");
 
     private Sellers seller;
 
@@ -43,6 +46,7 @@ public class AppViewController {
         tf_phone.setText(seller.getPhone());
         tf_email.setText(seller.getEmail());
         tf_password.setText(seller.getPlainPassword());
+        tf_url.setText(seller.getUrl());
         this.seller = seller;
     }
 
@@ -56,6 +60,7 @@ public class AppViewController {
         tf_phone.setText(seller.getPhone());
         tf_email.setText(seller.getEmail());
         tf_password.setText(seller.getPlainPassword());
+        tf_url.setText(seller.getUrl());
         showMsg("", "black");
     }
 
@@ -70,18 +75,20 @@ public class AppViewController {
         String phone = tf_phone.getText();
         String email = tf_email.getText();
         String password = tf_password.getText();
+        String url = tf_url.getText();
 
         //validation that the user did changed so updating with the same values can be prevented
-        boolean somethingChanged = somethingChanged(name, business, phone, email, password);
+        boolean somethingChanged = somethingChanged(name, business, phone, email, password, url);
 
         if (somethingChanged) {
             //set in an array all values and validations at once
             String[][] fieldsToCheck = {
-                    {"Name", name, "100", "false", "false", "false"},
-                    {"Business Name", business, "100", "false", "false", "true"},
-                    {"Phone", phone, "15", "true", "false", "true"},
-                    {"Email", email, "90", "false", "true", "true"},
-                    {"Password", password, "50", "false", "false", "false"}
+                    {"Name", name, "100", "false", "false", "false", "false"},
+                    {"Business Name", business, "100", "false", "false", "true", "false"},
+                    {"Phone", phone, "15", "true", "false", "true", "false"},
+                    {"Email", email, "90", "false", "true", "true", "false"},
+                    {"URL", url, "200", "false", "false", "true", "true"},
+                    {"Password", password, "50", "false", "false", "false", "false"},
             };
 
             //iterating all values
@@ -93,8 +100,9 @@ public class AppViewController {
                 boolean checkNumber = Boolean.parseBoolean(field[3]);
                 boolean checkMail = Boolean.parseBoolean(field[4]);
                 boolean canBeNull = Boolean.parseBoolean(field[5]);
+                boolean checkUrl = Boolean.parseBoolean(field[6]);
 
-                if (!checkValues(fieldName, value, maxChar, checkNumber, checkMail, !canBeNull)) {
+                if (!checkValues(fieldName, value, maxChar, checkNumber, checkMail, !canBeNull, checkUrl)) {
                     //border red if failed at certain field
                     switch (i) {
                         case 0:
@@ -110,6 +118,9 @@ public class AppViewController {
                             tf_email.setStyle("-fx-border-color: red; -fx-border-width: 2px");
                             break;
                         case 4:
+                            tf_url.setStyle("-fx-border-color: red; -fx-border-width: 2px");
+                            break;
+                        case 5:
                             tf_password.setStyle("-fx-border-color: red; -fx-border-width: 2px");
                             break;
                     }
@@ -123,7 +134,7 @@ public class AppViewController {
 
             if (action == ButtonType.YES) {
                 //updating the seller with the new values (and values like cif / seller that can't change)
-                Sellers res = SellersDAO.updateSeller(new Sellers(seller.getSellerId(), seller.getCif(), name, business, phone, email, password, hashUtil.hashPassword(password)));
+                Sellers res = SellersDAO.updateSeller(new Sellers(seller.getSellerId(), seller.getCif(), name, business, phone, email, password, hashUtil.hashPassword(password), url, seller.getPro()));
                 if(res!=null){
                     showMsg("Seller successfully updated", "green");
                     setSeller(res);
@@ -186,10 +197,11 @@ public class AppViewController {
         tf_phone.setStyle(null);
         tf_email.setStyle(null);
         tf_password.setStyle(null);
+        tf_url.setStyle(null);
     }
 
     //function to check all values are different from the original
-    public boolean somethingChanged(String name, String business, String phone, String email, String password) {
+    public boolean somethingChanged(String name, String business, String phone, String email, String password, String url) {
         boolean didChange = false;
 
         if (!seller.getName().equals(name)) {
@@ -221,6 +233,10 @@ public class AppViewController {
             didChange = true;
         }
 
+        if(!seller.getPassword().equals(password)){
+            didChange = true;
+        }
+
         if (!didChange) {
             showMsg("No changes detected. Update not performed.", "black");
             return false;
@@ -230,7 +246,7 @@ public class AppViewController {
     }
 
     //function to check all values are ok
-    public boolean checkValues(String field, String check, int maxChar, boolean checkNumber, boolean checkMail, boolean checkEmpty) {
+    public boolean checkValues(String field, String check, int maxChar, boolean checkNumber, boolean checkMail, boolean checkEmpty, boolean checkUrl) {
         if (check == null || check.trim().isEmpty()) {
             if (checkEmpty) {
                 showMsg("Please, fill in the empty field: " + field, "red");
@@ -258,6 +274,14 @@ public class AppViewController {
             Matcher matcher = EMAIL_PATTERN.matcher(check);
             if (!matcher.matches()) {
                 showMsg("The email is not valid.", "red");
+                return false;
+            }
+        }
+
+        if (checkUrl) {
+            Matcher matcher = URL_PATTERN.matcher(check);
+            if (!matcher.matches()) {
+                showMsg("The URL is not valid.", "red");
                 return false;
             }
         }

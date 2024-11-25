@@ -38,7 +38,7 @@ public class FinalActivityApplication extends Application {
 
         try {
             String dbUrl = "jdbc:postgresql://localhost:5432/FinalActivity";
-            connection = DriverManager.getConnection(dbUrl, "postgres", "admin");
+            connection = DriverManager.getConnection(dbUrl, "postgres", "postgres");
             return true;
         } catch (Exception e) {
             System.err.println("Failed to connect tto database: " + e.getMessage());

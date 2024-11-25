@@ -1,18 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="3da9db5d-1d76-4390-9192-21b5621db4de" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Unit 3/Activity 5.3.1/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Actividad Final/com.txt" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/examenMZFQ2425.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ActividadFinal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ActividadFinal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/AppViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/AppViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/FinalActivityApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/FinalActivityApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/LoginViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/LoginViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/OfferViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/OfferViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/dao/ProductsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/dao/ProductsDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/model/Sellers.java" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/src/main/java/org/mzfq2425/finalactivity/finalactivity/model/Sellers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/src/main/resources/org/mzfq2425/finalactivity/finalactivity/app_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/src/main/resources/org/mzfq2425/finalactivity/finalactivity/app_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalActivity/src/main/resources/org/mzfq2425/finalactivity/finalactivity/login_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/FinalActivity/src/main/resources/org/mzfq2425/finalactivity/finalactivity/login_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Unit 2/Activity 8.2.1/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Unit 2/Activity 8.2.1/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Unit 2/Activity 8.2.2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Unit 2/Activity 8.2.2/.idea/misc.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2ozT9aWV4EeluA08P5VZcHjz4cJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -20,13 +52,40 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.FinalActivityApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Zuhey/Documents/IdeaProjects/DataAccessMZFQ2425/ActividadFinal/FinalActivity"
+    "last_opened_file_path": "D:/examenMZFQ2425/ActividadFinal/FinalActivity/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\examenMZFQ2425\ActividadFinal\FinalActivity\src\main\resources" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -35,7 +94,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731871253395</updated>
+      <workItem from="1732547545431" duration="302000" />
+      <workItem from="1732547861866" duration="69000" />
+      <workItem from="1732547963759" duration="1411000" />
+      <workItem from="1732549405672" duration="6494000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

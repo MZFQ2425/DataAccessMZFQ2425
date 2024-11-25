@@ -3,11 +3,11 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.effect.DropShadow?>
 <AnchorPane maxHeight="572.0" maxWidth="786.0" minHeight="572.0" minWidth="786.0" prefHeight="572.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.mzfq2425.finalactivity.finalactivity.AppViewController">
    <children>
       <GridPane fx:id="menuLeft" prefHeight="572.0" prefWidth="136.0" style="-fx-background-color: ffffff;">
@@ -29,7 +29,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 <effect>
-                    <DropShadow color="lightsteelblue" radius="5" offsetX="2" offsetY="2" spread="0.5" />
+                    <DropShadow color="lightsteelblue" offsetX="2" offsetY="2" radius="5" spread="0.5" />
                 </effect>
             </ImageView>
             <ImageView fx:id="img_offer" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#callOfferView" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
@@ -57,7 +57,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <GridPane layoutX="218.0" layoutY="114.0" prefHeight="402.0" prefWidth="486.0">
+      <GridPane layoutX="218.0" layoutY="97.0" prefHeight="419.0" prefWidth="486.0">
         <columnConstraints>
           <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="303.0" minWidth="10.0" prefWidth="209.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="534.0" minWidth="10.0" prefWidth="407.0" />
@@ -68,9 +68,10 @@
             <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="106.0" minHeight="5.0" prefHeight="24.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="41.0" prefHeight="41.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="59.0" minHeight="44.0" prefHeight="51.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="106.0" minHeight="5.0" prefHeight="33.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label fx:id="label_cif" text="CIF:">
@@ -98,7 +99,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="label_password" text="Password:" GridPane.rowIndex="5">
+            <Label fx:id="label_password" text="Password:" GridPane.rowIndex="6">
                <font>
                   <Font size="14.0" />
                </font>
@@ -128,12 +129,12 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="tf_password" promptText="Password of the seller" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="tf_password" promptText="Password of the seller" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
-            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="8">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -160,7 +161,17 @@
                    </Button>
                </children>
             </GridPane>
-            <Label fx:id="label_msg" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="label_msg" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="URL:" GridPane.rowIndex="5">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+             <TextField fx:id="tf_url" promptText="URL of the seller" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                 <font>
+                     <Font size="14.0" />
+                 </font>
+             </TextField>
          </children>
       </GridPane>
    </children>

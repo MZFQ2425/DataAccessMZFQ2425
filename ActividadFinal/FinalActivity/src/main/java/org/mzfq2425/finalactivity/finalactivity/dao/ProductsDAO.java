@@ -89,4 +89,25 @@ public class ProductsDAO {
         }
         return isActive;
     }
+
+    //function to check if discount is active for pro users using the PostgreSQL function
+    public static boolean isPRODiscountActive(int sellerId, LocalDate offerStartDate, LocalDate offerEndDate) {
+        boolean isActive = false;
+        try {
+            openCon();
+
+            String sql = "SELECT is_pro_discount_active(:sellerId, :offerStartDate, :offerEndDate)";
+
+            isActive = (Boolean) session.createNativeQuery(sql)
+                    .setParameter("sellerId", sellerId)
+                    .setParameter("offerStartDate", java.sql.Date.valueOf(offerStartDate))
+                    .setParameter("offerEndDate", java.sql.Date.valueOf(offerEndDate))
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeCon();
+        }
+        return isActive;
+    }
 }
