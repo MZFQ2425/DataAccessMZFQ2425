@@ -128,7 +128,15 @@ public class OfferViewController {
         }
 
         // all good, calling the procedure
-        if(!productsDAO.isDiscountActive(cb_product.getValue().getProductId(), dp_from.getValue(), dp_to.getValue())){
+        boolean hasActiveOffer = true;
+
+        if(seller.getPro()){
+            hasActiveOffer = productsDAO.isPRODiscountActive(seller.getSellerId(),dp_from.getValue(), dp_to.getValue());
+        }else{
+            hasActiveOffer = productsDAO.isDiscountActive(cb_product.getValue().getProductId(), dp_from.getValue(), dp_to.getValue());
+        }
+
+        if(!hasActiveOffer){
             //no active discounts for the product on those range of dates, call to create offer
             ButtonType action = createDialogConfirmation("Would you like to create the offer?");
 
@@ -164,20 +172,36 @@ public class OfferViewController {
             }
         }else{
             //already active discount, tell user
-            showMsg("This product already has an active offer\n" +
-                    "for the selected date range. Please choose different dates.","red");
+            if(seller.getPro()){
+                showMsg("This sellers has already three active offers\n" +
+                        "for the selected date range. Please choose different dates.","red");
+            }else {
+                showMsg("This product already has an active offer\n" +
+                        "for the selected date range. Please choose different dates.", "red");
+            }
         }
     }
 
     //function to show the dialog info for the discounts
     @FXML
     public void createDialogInfo() {
-        String msgDialog = "The discounted price must match the following requirements:\n\n" +
-                "• For a 30-day period: maximum discount of 10%\n" +
-                "• For a 15-day period: maximum discount of 15%\n" +
-                "• For a 7-day period: maximum discount of 20%\n" +
-                "• For a 3-day period: maximum discount of 30%\n" +
-                "• For a 1-day period: maximum discount of 50%";
+        String msgDialog = "";
+
+        if(seller.getPro()){
+            msgDialog = "The discounted price for PRO sellers must match the following requirements:\n\n" +
+                    "• For a 30-day period: maximum discount of 10%\n" +
+                    "• For a 7-day period: maximum discount of 30%\n" +
+                    "• For a 3-day period: maximum discount of 50%\n\n" +
+                    "These type of PRO sellers can have three maximum offers at the same time.";
+        }else{
+            msgDialog = "The discounted price must match the following requirements:\n\n" +
+                    "• For a 30-day period: maximum discount of 10%\n" +
+                    "• For a 15-day period: maximum discount of 15%\n" +
+                    "• For a 7-day period: maximum discount of 20%\n" +
+                    "• For a 3-day period: maximum discount of 30%\n" +
+                    "• For a 1-day period: maximum discount of 50%";
+        }
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION, msgDialog);
         alert.showAndWait();
     }
@@ -240,22 +264,35 @@ public class OfferViewController {
         if(dateFrom !=null && dateTo != null){
             long daysBetween = getDaysBetween(dateFrom, dateTo);
 
-            if(daysBetween > 30){
-                showMsg("The discount can't exceed 30", "red");
-                return 0;
-            }else if (daysBetween == 30) {
-                maxDiscount = 10;
-            } else if (daysBetween <30 && daysBetween >= 15) {
-                maxDiscount = 15;
-            } else if (daysBetween <15 && daysBetween >=7) {
-                maxDiscount = 20;
-            } else if (daysBetween <7 && daysBetween >= 3) {
-                maxDiscount = 30;
-            } else if (daysBetween <= 2) {
-                maxDiscount = 50;
-            } else {
-                showMsg("The end date must be after the start date", "red");
-                return 0;
+            if(!seller.getPro()){
+                if(daysBetween > 30){
+                    showMsg("The discount can't exceed 30 days", "red");
+                    return 0;
+                }else if (daysBetween == 30) {
+                    maxDiscount = 10;
+                } else if (daysBetween < 30 && daysBetween >= 15) {
+                    maxDiscount = 15;
+                } else if (daysBetween < 15 && daysBetween >=7) {
+                    maxDiscount = 20;
+                } else if (daysBetween < 7 && daysBetween >= 3) {
+                    maxDiscount = 30;
+                } else if (daysBetween <= 2) {
+                    maxDiscount = 50;
+                } else {
+                    showMsg("The end date must be after the start date", "red");
+                    return 0;
+                }
+            }else{
+                if(daysBetween > 30){
+                    showMsg("The discount can't exceed 30 days", "red");
+                    return 0;
+                }else if (daysBetween == 30) {
+                    maxDiscount = 20;
+                }else if (daysBetween < 30 && daysBetween >= 7) {
+                    maxDiscount = 30;
+                }else if (daysBetween < 7 && daysBetween >= 0) {
+                    maxDiscount = 50;
+                }
             }
         }else{
             showMsg("Please, select a range of dates to enter the discount", "red");

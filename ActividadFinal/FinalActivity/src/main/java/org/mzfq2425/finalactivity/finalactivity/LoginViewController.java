@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,18 +14,29 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.mzfq2425.finalactivity.finalactivity.dao.SellersDAO;
 import org.mzfq2425.finalactivity.finalactivity.model.Sellers;
+import org.mzfq2425.finalactivity.finalactivity.utils.ObjUtil;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
 public class LoginViewController {
     @FXML private TextField field_user;
     @FXML private PasswordField field_pwd;
     @FXML private Label label_msg;
+    @FXML private CheckBox check_remember;
+
+    SellersDAO sellersDAO = new SellersDAO();
+    ObjUtil objReader = new ObjUtil();
 
     //function to force focus on user field
     @FXML
     protected void initialize(){
-        Platform.runLater(() -> field_user.requestFocus());
+        if(readUserRemembered()){
+            Platform.runLater(() -> field_pwd.requestFocus());
+            check_remember.setSelected(true);
+        }else {
+            Platform.runLater(() -> field_user.requestFocus());
+        }
     }
 
     //function to check if the user exits
@@ -47,12 +59,35 @@ public class LoginViewController {
             if(userFinal==null){
                 showMsg("The username or password you entered is incorrect. Please try again", "red");
             }else{
+                if(check_remember.isSelected()){
+                    writeRememberUser(userFinal);
+                }else{
+                    objReader.cleanRememberUser();
+                }
+
                 // if it does exist, we pass the seller to the appviewcontroller so we don't have to do another call
                 showMsg("Successful login, redirecting to the next page...", "green");
                 changeScene(userFinal);
             }
         }
 
+    }
+
+    //function to write to obj file the user to be remembered
+    public void writeRememberUser(Sellers seller){
+        if(objReader.writeSellersToObj(seller)) {
+            System.out.println("User sucessfully remembered");
+        }
+    }
+
+    //function to read the user stored in the obj file
+    public boolean readUserRemembered(){
+        Sellers remembered = objReader.readObj();
+        if(remembered!=null){
+            field_user.setText(remembered.getCif());
+            return true;
+        }
+        return false;
     }
 
     //function to change from the scene of login to the scene of appview

@@ -1,10 +1,11 @@
 package org.mzfq2425.finalactivity.finalactivity.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "sellers")
-public class Sellers {
+public class Sellers implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,11 +33,18 @@ public class Sellers {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "url")
+    private String url;
+
+    @Column(name = "pro")
+    private Boolean pro;
+
     public Sellers() {
 
     }
 
-    public Sellers(int sellerId, String cif, String name, String businessName, String phone, String email, String plainPassword, String password) {
+    public Sellers(int sellerId, String cif, String name, String businessName, String phone,
+                   String email, String plainPassword, String password, String url, Boolean pro) {
         this.sellerId = sellerId;
         this.cif = cif;
         this.name = name;
@@ -45,6 +53,8 @@ public class Sellers {
         this.email = email;
         this.plainPassword = plainPassword;
         this.password = password;
+        this.url = url;
+        this.pro = pro;
     }
 
     public int getSellerId() {
@@ -109,5 +119,21 @@ public class Sellers {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Boolean getPro() {
+        return pro;
+    }
+
+    public void setPro(Boolean pro) {
+        this.pro = pro;
     }
 }

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ActividadFinal.iml" filepath="$PROJECT_DIR$/.idea/ActividadFinal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FinalActivity/FinalActivity.iml" filepath="$PROJECT_DIR$/FinalActivity/FinalActivity.iml" />
     </modules>
   </component>
 </project>

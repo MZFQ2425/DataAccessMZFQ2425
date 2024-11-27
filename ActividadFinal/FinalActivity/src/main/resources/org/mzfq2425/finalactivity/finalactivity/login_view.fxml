@@ -12,9 +12,10 @@
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="127.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="22.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -56,7 +57,7 @@
                      </font></TextField>
                </children>
             </GridPane>
-            <Button fx:id="btn_login" mnemonicParsing="false" onAction="#checkForUser" text="Login" GridPane.rowIndex="3">
+            <Button fx:id="btn_login" mnemonicParsing="false" onAction="#checkForUser" text="Login" GridPane.rowIndex="4">
                <padding>
                   <Insets bottom="8.0" left="30.0" right="30.0" top="8.0" />
                </padding>
@@ -64,6 +65,11 @@
                   <Font size="14.0" />
                </font>
             </Button>
+            <CheckBox fx:id="check_remember" mnemonicParsing="false" text="Remember me" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </CheckBox>
          </children>
       </GridPane>
    </children>
