@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Data</title>
+    <link rel="stylesheet" href="/api-rest/css/styles.css">
+    <script type="text/javascript" src="/api-rest/js/js.js"></script>
+    <style>
+        .sidebar img:first-child {
+            opacity: 1;  /* No cambiar la opacidad del primer ícono */
+        }
+        .sidebar img.logout-img {
+            opacity: 0.7;  /* Esta clase se usa para no cambiar la opacidad de la imagen de logout */
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+        .sidebar img.logout-img:hover {
+            opacity: 1;  /* Al pasar el cursor también cambia la opacidad */
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <img src="/api-rest/icons/user.png" alt="User">
+    <img src="/api-rest/icons/boxSearch.png" alt="Search">
+    <img src="/api-rest/icons/boxSell.png" alt="Sell">
+
+    <!-- Botón de logout -->
+    <form action="#" th:action="@{/logout}" method="post">
+        <button type="submit" class="logout-btn">
+            <img src="/api-rest/icons/exit.png" alt="Exit" class="logout-img">
+        </button>
+    </form>
+</div>
+
+<div class="container">
+    <h2 style="margin-top:0px"> Welcome!</h2>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div th:if="${koMessage}" th:attr="data-message=${koMessage}" id="toastMessage" style="display: none;"></div>
+    <div th:if="${okMessage}" th:attr="data-message=${okMessage}" id="toastSuccess" style="display: none;"></div>
+
+    <form th:action="@{/sellers/update}" th:object="${seller}" method="post">
+        <div class="form-group">
+            <label for="cif">CIF:</label>
+            <input type="text" id="cif" name="cif" th:value="${seller.cif}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Name of the seller" th:value="${seller.name}" required>
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="business">Business name:</label>
+            <input type="text" id="business" name="businessName" placeholder="Business name of the seller" th:value="${seller.businessName}">
+            <span th:if="${#fields.hasErrors('businessName')}" th:errors="*{businessName}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" placeholder="Phone number of the seller" th:value="${seller.phone}">
+            <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" placeholder="Email of the seller" th:value="${seller.email}">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="plainPassword" placeholder="Password name of the seller" th:value="${seller.plainPassword}" required>
+            <span th:if="${#fields.hasErrors('plainPassword')}" th:errors="*{plainPassword}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="password">Confirm entering your current password:</label>
+            <input type="password" id="confirm-password" name="confirmPassword" placeholder="Please, write the current password again to confirm the changes" required>
+        </div>
+        <div class="buttons">
+            <button type="submit" class="ok-btn">Update</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
