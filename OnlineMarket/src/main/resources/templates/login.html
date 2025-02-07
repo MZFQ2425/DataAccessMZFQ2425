@@ -7,11 +7,16 @@
     <link rel="stylesheet" href="/api-rest/css/styles.css">
 </head>
 <body>
+<div class="toast-container" id="toastContainer"></div>
 <div class="login-container">
     <h2>Online Market</h2>
 
     <div th:if="${errorMessage}" class="error-message">
         <p th:text="${errorMessage}"></p>
+    </div>
+
+    <div th:if="${expiredMessage}" class="expired-message">
+        <p th:text="${expiredMessage}"></p>
     </div>
 
     <form action="#" method="post" th:action="@{/login}">

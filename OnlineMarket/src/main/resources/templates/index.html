@@ -8,15 +8,15 @@
     <script type="text/javascript" src="/api-rest/js/js.js"></script>
     <style>
         .sidebar img:first-child {
-            opacity: 1;  /* No cambiar la opacidad del primer ícono */
+            opacity: 1;
         }
         .sidebar img.logout-img {
-            opacity: 0.7;  /* Esta clase se usa para no cambiar la opacidad de la imagen de logout */
+            opacity: 0.7;
             transition: opacity 0.3s;
             cursor: pointer;
         }
         .sidebar img.logout-img:hover {
-            opacity: 1;  /* Al pasar el cursor también cambia la opacidad */
+            opacity: 1;
         }
     </style>
 </head>
@@ -26,7 +26,6 @@
     <img src="/api-rest/icons/boxSearch.png" alt="Search">
     <img src="/api-rest/icons/boxSell.png" alt="Sell">
 
-    <!-- Botón de logout -->
     <form action="#" th:action="@{/logout}" method="post">
         <button type="submit" class="logout-btn">
             <img src="/api-rest/icons/exit.png" alt="Exit" class="logout-img">
@@ -58,13 +57,13 @@
             <span th:if="${#fields.hasErrors('businessName')}" th:errors="*{businessName}" class="error"></span>
         </div>
         <div class="form-group">
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" placeholder="Phone number of the seller" th:value="${seller.phone}">
+            <label for="phone">Phone <span stlye="font-size:12px; font-style: italic">(in XXX-XXX-XXX format):</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="Phone number of the seller" pattern="^\d{3}-\d{3}-\d{3}$" th:value="${seller.phone}">
             <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"></span>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" placeholder="Email of the seller" th:value="${seller.email}">
+            <input type="email" id="email" name="email" placeholder="Email of the seller" th:value="${seller.email}">
             <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
         </div>
         <div class="form-group">

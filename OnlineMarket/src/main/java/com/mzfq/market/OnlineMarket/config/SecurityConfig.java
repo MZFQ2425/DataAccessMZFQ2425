@@ -79,7 +79,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .sessionManagement()
-                .maximumSessions(-1)
-                .maxSessionsPreventsLogin(false);
+                .maximumSessions(3)
+                .maxSessionsPreventsLogin(false)
+                .expiredUrl("/login?expired")
+                .and()
+                .invalidSessionUrl("/login?expired")
+                .sessionFixation().none()
+                .and()
+                .csrf().disable();
     }
 }

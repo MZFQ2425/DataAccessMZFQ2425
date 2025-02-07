@@ -35,6 +35,7 @@ public class SellersEntity {
     private String phone;
 
     @Column(name = "email")
+    @NotEmpty(message = "Email cannot be empty")
     @Size(max = 90, message="Email size must be 90 or less characters")
     @Email(message="Please, enter a valid mail")
     private String email;
@@ -44,7 +45,7 @@ public class SellersEntity {
     @Size(min = 6, max = 50, message="Password size must be between 6 and 50 characters")
     private String plainPassword;
 
-    //we wont use validations on password hashed since it can only be edited on thee server side
+    //we wont use validations on password hashed since it can only be edited on the server side
     @Column(name = "password")
     private String password;
 
