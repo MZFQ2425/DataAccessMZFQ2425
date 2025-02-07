@@ -49,27 +49,37 @@
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" placeholder="Name of the seller" th:value="${seller.name}" required>
-            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
+            <ul  style="list-style-type: none; padding-left:0px">
+                <li th:each="error : ${#fields.errors('name')}" class="error" th:text="${error}"></li>
+            </ul>
         </div>
         <div class="form-group">
             <label for="business">Business name:</label>
             <input type="text" id="business" name="businessName" placeholder="Business name of the seller" th:value="${seller.businessName}">
-            <span th:if="${#fields.hasErrors('businessName')}" th:errors="*{businessName}" class="error"></span>
+            <ul  style="list-style-type: none; padding-left:0px">
+                <li th:each="error : ${#fields.errors('businessName')}" class="error" th:text="${error}"></li>
+            </ul>
         </div>
         <div class="form-group">
             <label for="phone">Phone <span stlye="font-size:12px; font-style: italic">(in XXX-XXX-XXX format):</span></label>
             <input type="tel" id="phone" name="phone" placeholder="Phone number of the seller" pattern="^\d{3}-\d{3}-\d{3}$" th:value="${seller.phone}">
-            <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error"></span>
+            <ul  style="list-style-type: none; padding-left:0px">
+                <li th:each="error : ${#fields.errors('phone')}" class="error" th:text="${error}"></li>
+            </ul>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="Email of the seller" th:value="${seller.email}">
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+            <ul  style="list-style-type: none; padding-left:0px">
+                <li th:each="error : ${#fields.errors('email')}" class="error" th:text="${error}"></li>
+            </ul>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" id="password" name="plainPassword" placeholder="Password name of the seller" th:value="${seller.plainPassword}" required>
-            <span th:if="${#fields.hasErrors('plainPassword')}" th:errors="*{plainPassword}" class="error"></span>
+            <ul  style="list-style-type: none; padding-left:0px">
+                <li th:each="error : ${#fields.errors('plainPassword')}" class="error" th:text="${error}"></li>
+            </ul>
         </div>
         <div class="form-group">
             <label for="password">Confirm entering your current password:</label>
