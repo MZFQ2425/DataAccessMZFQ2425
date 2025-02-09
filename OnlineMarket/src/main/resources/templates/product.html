@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to Store</title>
+    <link rel="stylesheet" href="/api-rest/css/styles.css">
+    <style>
+        .sidebar img[src*="boxSearch.png"] {
+            opacity: 1;
+        }
+        .sidebar img.logout-img {
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+        .sidebar img.logout-img:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="product-page">
+<div class="sidebar">
+    <a th:href="@{/}">
+        <img src="/api-rest/icons/user.png" alt="User">
+    </a>
+    <img src="/api-rest/icons/boxSearch.png" alt="Search">
+    <img src="/api-rest/icons/boxSell.png" alt="Sell">
+    <form action="#" th:action="@{/logout}" method="post">
+        <button type="submit" class="logout-btn">
+            <img src="/api-rest/icons/exit.png" alt="Exit" class="logout-img">
+        </button>
+    </form>
+</div>
+
+<div class="container">
+    <h2>Add to Store</h2>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div th:if="${koMessage}" th:attr="data-message=${koMessage}" id="toastMessage" style="display: none;"></div>
+
+    <div th:if="${okMessage}" th:attr="data-message=${okMessage}" id="toastSuccess" style="display: none;"></div>
+
+    <form id="addProductForm" th:action="@{/products/add}" method="post" th:object="${product}">
+        <div class="form-group">
+            <label for="categoryId">Category:</label>
+            <select id="categoryId" name="categoryId">
+                <option value="">Select a category</option>
+                <th:block th:each="category : ${categories}">
+                    <option th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="productId">Product:</label>
+            <select id="productId" name="productId" required>
+                <option value="">Select a product</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="stock">Stock:</label>
+            <div class="slider-container">
+                <input type="range" id="stock" name="stock" min="0" max="25" value="0" disabled>
+                <span class="units" id="stockValue">0</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price"  step="0.01" placeholder="Enter price" required disabled>
+        </div>
+
+        <button type="submit" class="ok-btn" disabled>Add</button>
+    </form>
+
+</div>
+
+<script type="text/javascript" src="/api-rest/js/js.js"></script>
+
+<script>
+    const stockInput = document.getElementById('stock');
+    const stockValue = document.getElementById('stockValue');
+
+    stockInput.addEventListener('input', () => {
+    stockValue.textContent = `${stockInput.value}`;
+    });
+</script>
+</body>
+</html>
