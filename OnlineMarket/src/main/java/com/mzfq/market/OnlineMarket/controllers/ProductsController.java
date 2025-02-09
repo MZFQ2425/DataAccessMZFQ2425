@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -72,12 +73,7 @@ public class ProductsController {
 
     @PostMapping("/add")
     public String addProductToStore(
-            @ModelAttribute ProductDTO productDTO,
-            @RequestParam("stock") int stock,
-            @RequestParam("price") double price,
-            @RequestParam(value = "offerPrice", required = false) Double offerPrice,
-            @RequestParam(value = "offerStartDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate offerStartDate,
-            @RequestParam(value = "offerEndDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate offerEndDate,
+            @ModelAttribute("ProductDTO") @Valid ProductDTO productDTO,
             BindingResult result,
             RedirectAttributes redirectAttributes,
             Model model) {
@@ -91,7 +87,7 @@ public class ProductsController {
             String cif = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
             Integer sellerId = sellersService.getSellerByCif(cif).getSellerId();
 
-            productService.addProductToStore(sellerId, productDTO.getProductId(), stock, price, offerPrice, offerStartDate, offerEndDate);
+            productService.addProductToStore(sellerId, productDTO.getProductId(), productDTO.getStock(), productDTO.getPrice());
 
             redirectAttributes.addFlashAttribute("okMessage", "Product added successfully!");
             return "redirect:/products";

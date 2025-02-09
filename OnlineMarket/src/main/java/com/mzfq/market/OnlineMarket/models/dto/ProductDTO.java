@@ -1,18 +1,23 @@
 package com.mzfq.market.OnlineMarket.models.dto;
 
-public class ProductDTO {
-    private int productId;
-    private String productName;
-    private String description;
-    private int categoryId;
-    private int stock;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-    public ProductDTO(int productId, String productName, String description, int categoryId, int stock) {
+public class ProductDTO {
+    @NotNull(message = "Product cannot be empty!")
+    private int productId;
+    @NotNull(message = "Category cannot be empty!")
+    private int categoryId;
+    @Min(value = 0, message = "Stock mustn't be lower than 0")
+    private int stock;
+    @Min(value = 0, message = "Price mustn't be lower than 0")
+    private double price;
+
+    public ProductDTO(int productId, String productName, String description, int categoryId, int stock, double price) {
         this.productId = productId;
-        this.productName = productName;
-        this.description = description;
         this.categoryId = categoryId;
         this.stock = stock;
+        this.price = price;
     }
 
     public int getProductId() {
@@ -21,22 +26,6 @@ public class ProductDTO {
 
     public void setProductId(int productId) {
         this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getCategoryId() {
@@ -53,6 +42,14 @@ public class ProductDTO {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
 

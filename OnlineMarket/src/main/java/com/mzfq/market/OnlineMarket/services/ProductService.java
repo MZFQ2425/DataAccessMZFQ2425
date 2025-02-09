@@ -52,8 +52,7 @@ public class ProductService {
         return categoryService.getAllCategories();
     }
 
-    public void addProductToStore(Integer sellerId, Integer productId, int stock, double price,
-                                  Double offerPrice, LocalDate offerStartDate, LocalDate offerEndDate) {
+    public void addProductToStore(Integer sellerId, Integer productId, int stock, double price) {
 
         SellersEntity seller = sellersService.getSellerById(sellerId)
                 .orElseThrow(() -> new RuntimeException("Seller not found"));
@@ -66,16 +65,6 @@ public class ProductService {
         sellerProduct.setProduct(product);
         sellerProduct.setStock(stock);
         sellerProduct.setPrice(price);
-
-        if (offerPrice != null) {
-            sellerProduct.setOfferPrice(offerPrice);
-        }
-        if (offerStartDate != null) {
-            sellerProduct.setOfferStartDate(offerStartDate);
-        }
-        if (offerEndDate != null) {
-            sellerProduct.setOfferEndDate(offerEndDate);
-        }
 
         sellerProductRepository.save(sellerProduct);
     }

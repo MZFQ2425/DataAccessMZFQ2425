@@ -42,10 +42,10 @@
 
     <div th:if="${okMessage}" th:attr="data-message=${okMessage}" id="toastSuccess" style="display: none;"></div>
 
-    <form id="addProductForm" th:action="@{/products/add}" method="post" th:object="${product}">
+    <form id="addProductForm" th:action="@{/products/add}" method="post" th:object="${ProductDTO}">
         <div class="form-group">
             <label for="categoryId">Category:</label>
-            <select id="categoryId" name="categoryId">
+            <select id="categoryId" name="categoryId" required>
                 <option value="">Select a category</option>
                 <th:block th:each="category : ${categories}">
                     <option th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
@@ -70,7 +70,7 @@
 
         <div class="form-group">
             <label for="price">Price:</label>
-            <input type="number" id="price" name="price"  step="0.01" placeholder="Enter price" required disabled>
+            <input type="number" id="price" name="price" min="0" max="9999999999,99" step="0.01" placeholder="Enter price" required disabled>
         </div>
 
         <button type="submit" class="ok-btn" disabled>Add</button>
