@@ -1,11 +1,41 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const categorySelect = document.getElementById("categoryId");
-    const productSelect = document.getElementById("productId");
-    const formInputs = document.querySelectorAll("#addProductForm input, #addProductForm select, #addProductForm textarea, #addProductForm button");
     const errorElement = document.getElementById("toastMessage");
     const successElement = document.getElementById("toastSuccess");
 
+    if(document.getElementsByClassName("product-page").length > 0){
+        const categorySelect = document.getElementById("categoryId");
+        const productSelect = document.getElementById("productId");
+        const formInputs = document.querySelectorAll("#addProductForm input, #addProductForm select, #addProductForm textarea, #addProductForm button");
 
+        formInputs.forEach(input => {
+            if (input.id !== "categoryId") {
+                input.disabled = true;
+            }
+        });
+
+        if (categorySelect.options.length <= 1) {
+            categorySelect.disabled = true;
+        }
+
+        categorySelect.addEventListener("change", function () {
+            const isCategorySelected = categorySelect.value !== "";
+
+            if (!isCategorySelected) {
+                productSelect.innerHTML = '<option value="">Select a product</option>';
+                productSelect.disabled = true;
+            } else {
+                productSelect.innerHTML = '<option value="">Select a product</option>';
+                productSelect.disabled = false;
+                loadProducts(categorySelect.value);
+            }
+
+            formInputs.forEach(input => {
+                if (input.id !== "categoryId" && input.id !== "productId") {
+                    input.disabled = !isCategorySelected;
+                }
+            });
+        });
+    }
 
     if (errorElement) {
         showToast(errorElement.getAttribute("data-message"), "error");
@@ -14,44 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (successElement) {
         showToast(successElement.getAttribute("data-message"), "success");
     }
-
-    // Desactivar todos los inputs excepto el select de categorías al inicio
-    formInputs.forEach(input => {
-        if (input.id !== "categoryId") {
-            input.disabled = true;
-        }
-    });
-
-    // Si no hay categorías disponibles, desactivar también el select de categorías y mostrar un toast
-    if (categorySelect.options.length <= 1) {
-        categorySelect.disabled = true;
-        showToast("No categories available for your products.", "error");
-    }
-
-    // Evento para habilitar los inputs cuando se seleccione una categoría
-    categorySelect.addEventListener("change", function () {
-        const isCategorySelected = categorySelect.value !== "";
-
-        // Si la categoría seleccionada es la opción vacía, desactivar el selector de productos y limpiar el contenido
-        if (!isCategorySelected) {
-            productSelect.innerHTML = '<option value="">Select a product</option>'; // Limpiar los productos
-            productSelect.disabled = true; // Deshabilitar el selector de productos
-        } else {
-            productSelect.innerHTML = '<option value="">Select a product</option>'; // Reset productos
-            productSelect.disabled = false;// Habilitar el selector de productos
-            console.log(categorySelect.value);
-            loadProducts(categorySelect.value); // Cargar los productos de la categoría seleccionada
-        }
-
-        // Habilitar o deshabilitar los inputs basados en si hay una categoría seleccionada
-        formInputs.forEach(input => {
-            if (input.id !== "categoryId" && input.id !== "productId") {
-                input.disabled = !isCategorySelected;
-            }
-        });
-    });
-
-
 });
 
 // Función para cargar las categorías disponibles para el vendedor

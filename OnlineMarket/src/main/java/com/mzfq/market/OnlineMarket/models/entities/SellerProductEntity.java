@@ -1,6 +1,7 @@
 package com.mzfq.market.OnlineMarket.models.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -21,10 +22,13 @@ public class SellerProductEntity {
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
-    @Column(name = "price", nullable = false)
+    @NotNull(message = "Price cannot be null!")
+    @Min(value = 0, message = "Price must be greater than or equal to 0!")
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private double price;
 
-    @Column(name = "offer_price")
+    @Min(value = 0, message = "Offer price must be greater than or equal to 0!")
+    @Column(name = "offer_price", precision = 10, scale = 2)
     private Double offerPrice;
 
     @Column(name = "offer_start_date")
@@ -33,7 +37,9 @@ public class SellerProductEntity {
     @Column(name = "offer_end_date")
     private LocalDate offerEndDate;
 
-    @Column(name = "stock", nullable = false)
+    @NotNull(message = "Stock cannot be null!")
+    @Min(value = 0, message = "Stock must be greater than or equal to 0!")
+    @Column(name = "stock", nullable = false, columnDefinition = "integer default 0")
     private int stock;
 
     public int getId() { return id; }

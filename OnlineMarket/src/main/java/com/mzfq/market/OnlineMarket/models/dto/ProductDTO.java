@@ -1,5 +1,6 @@
 package com.mzfq.market.OnlineMarket.models.dto;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -10,7 +11,7 @@ public class ProductDTO {
     private int categoryId;
     @Min(value = 0, message = "Stock mustn't be lower than 0")
     private int stock;
-    @Min(value = 0, message = "Price mustn't be lower than 0")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Price cannot be negative!")
     private double price;
 
     public ProductDTO(int productId, String productName, String description, int categoryId, int stock, double price) {

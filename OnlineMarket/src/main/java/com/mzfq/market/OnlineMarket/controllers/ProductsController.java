@@ -7,7 +7,6 @@ import com.mzfq.market.OnlineMarket.services.CategoryService;
 import com.mzfq.market.OnlineMarket.services.ProductService;
 import com.mzfq.market.OnlineMarket.services.SellersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -41,7 +39,7 @@ public class ProductsController {
         List<CategoryEntity> availableCategories = categoryService.getAvailableCategories(sellerId);
 
         if (availableCategories.isEmpty()) {
-            model.addAttribute("koMessage", "No categories available for your products.");
+            model.addAttribute("koMessage", "There's no categories available for your products.");
         }
 
         model.addAttribute("categories", availableCategories);
@@ -80,6 +78,16 @@ public class ProductsController {
 
         if (result.hasErrors()) {
             model.addAttribute("koMessage", "Please correct the incorrect fields.");
+            return "product";
+        }
+
+        if (productDTO.getStock() <= 0) {
+            model.addAttribute("koMessage", "Stock must be greater than 0.");
+            return "product";
+        }
+
+        if (productDTO.getPrice() <= 0) {
+            model.addAttribute("koMessage", "Price must be greater than 0.");
             return "product";
         }
 

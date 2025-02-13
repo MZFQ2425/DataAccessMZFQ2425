@@ -24,6 +24,10 @@ public class CategoryService {
     }
 
     public List<CategoryEntity> getAvailableCategories(Integer sellerId) {
+        if (sellerId == null) {
+            throw new IllegalArgumentException("Seller ID cannot be null.");
+        }
+
         List<ProductEntity> productsNotInStore = productEntityDAO.getProductsNotInStore(sellerId);
 
         List<Integer> categoryIdsWithProducts = productsNotInStore.stream()

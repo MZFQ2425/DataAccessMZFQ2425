@@ -11,9 +11,9 @@ import java.util.List;
 @Repository
 public interface IProductEntityDAO extends JpaRepository<ProductEntity, Integer> {
 
-    @Query(value = "SELECT * FROM get_products_not_in_store(:sellerId, NULL)", nativeQuery = true)
+    @Query(value = "SELECT * FROM get_products_not_in_store_mzfq(:sellerId, NULL)", nativeQuery = true)
     List<ProductEntity> getProductsNotInStore(@Param("sellerId") Integer sellerId);
 
-    @Query(value = "SELECT * FROM get_products_not_in_store(:sellerId, :categoryId)", nativeQuery = true)
+    @Query(value = "SELECT * FROM get_products_not_in_store_mzfq(:sellerId, :categoryId)", nativeQuery = true)
     List<ProductEntity> getProductsNotInStoreByCategory(@Param("sellerId") Integer sellerId, @Param("categoryId") Integer categoryId);
 }

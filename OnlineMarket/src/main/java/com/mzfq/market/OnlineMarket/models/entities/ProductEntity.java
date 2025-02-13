@@ -17,18 +17,18 @@ public class ProductEntity {
     private Integer productId;
 
     @NotEmpty
-    @Size(min = 2, max = 255)
-    @Column(name = "product_name")
+    @Size(min = 2, max = 100)
+    @Column(name = "product_name", nullable = false, length = 100)
     private String productName;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
 
-    @Column(name = "active")
+    @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
     private boolean active;
 
     // Getters y Setters

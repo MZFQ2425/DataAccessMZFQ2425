@@ -30,29 +30,25 @@ public class ProductService {
     private CategoryService categoryService;
 
     public List<ProductEntity> getProductsNotInStoreByCategory(Integer sellerId, Integer categoryId) {
+        if (sellerId == null || categoryId == null) {
+            throw new IllegalArgumentException("Seller ID and Category ID cannot be null.");
+        }
         List<ProductEntity> products = productDAO.getProductsNotInStoreByCategory(sellerId, categoryId);
         return products;
     }
 
-    public List<ProductEntity> getProductsNotInStore(Integer sellerId) {
-        List<ProductEntity> products = productDAO.getProductsNotInStore(sellerId);
-        return filterProductsWithoutStock(sellerId, products);
-    }
-
-    private List<ProductEntity> filterProductsWithoutStock(Integer sellerId, List<ProductEntity> products) {
-        return products.stream()
-                .filter(product -> {
-                    Optional<SellerProductEntity> sellerProduct = sellerProductRepository.findById(product.getProductId());
-                    return sellerProduct.isEmpty();
-                })
-                .collect(Collectors.toList());
-    }
-
-    public List<CategoryEntity> getAllCategories() {
-        return categoryService.getAllCategories();
-    }
-
     public void addProductToStore(Integer sellerId, Integer productId, int stock, double price) {
+        if (sellerId == null || productId == null) {
+            throw new IllegalArgumentException("Seller ID and Product ID cannot be null.");
+        }
+
+        if (stock <= 0) {
+            throw new IllegalArgumentException("Stock must be greater than 0.");
+        }
+
+        if (price <= 0) {
+            throw new IllegalArgumentException("Price must be greater than 0.");
+        }
 
         SellersEntity seller = sellersService.getSellerById(sellerId)
                 .orElseThrow(() -> new RuntimeException("Seller not found"));
