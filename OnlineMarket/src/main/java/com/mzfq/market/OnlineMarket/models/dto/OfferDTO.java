@@ -8,13 +8,15 @@ import java.time.LocalDate;
 public class OfferDTO {
 
     @NotNull(message = "Product cannot be empty!")
-    @Min(value = 1, message = "Product ID must be greater than 0")
+    @Min(value = 1, message = "Please, select a product")
     private Integer productId;
 
+    @NotNull(message = "Start date cannot be empty!")
     @FutureOrPresent(message = "Start date must be today or in the future")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate offerStartDate;
 
+    @NotNull(message = "End date cannot be empty!")
     @FutureOrPresent(message = "End date must be today or in the future")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate offerEndDate;

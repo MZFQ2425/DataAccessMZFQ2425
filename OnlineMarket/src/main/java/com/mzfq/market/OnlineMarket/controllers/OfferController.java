@@ -1,11 +1,8 @@
 package com.mzfq.market.OnlineMarket.controllers;
 
 import com.mzfq.market.OnlineMarket.models.dto.OfferDTO;
-import com.mzfq.market.OnlineMarket.models.dto.ProductDTO;
-import com.mzfq.market.OnlineMarket.models.entities.CategoryEntity;
 import com.mzfq.market.OnlineMarket.models.entities.ProductEntity;
 import com.mzfq.market.OnlineMarket.models.entities.SellerProductEntity;
-import com.mzfq.market.OnlineMarket.services.CategoryService;
 import com.mzfq.market.OnlineMarket.services.ProductService;
 import com.mzfq.market.OnlineMarket.services.SellerProductService;
 import com.mzfq.market.OnlineMarket.services.SellersService;
@@ -39,7 +36,6 @@ public class OfferController {
         String cif = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         Integer sellerId = sellersService.getSellerByCif(cif).getSellerId();
 
-        //todo: crear un DTO que ocntenga datos de product entity asi como seller product
         List<ProductEntity> availableList = sellerProductService.getProductsFromIdSeller(sellerId);
 
         if (availableList.isEmpty()) {
@@ -62,14 +58,18 @@ public class OfferController {
         String cif = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         Integer sellerId = sellersService.getSellerByCif(cif).getSellerId();
 
-        //TODO has errors
-
         List<ProductEntity> availableList = sellerProductService.getProductsFromIdSeller(sellerId);
         model.addAttribute("product", availableList);
 
+        if(result.hasErrors()){
+            model.addAttribute("offerDTO", offerDTO);
+            model.addAttribute("koMessage", "Please correct the incorrect fields");
+            return "offer";
+        }
+
         try {
 
-            boolean offerOverlaps = sellerProductService.checkIfOfferAlreadyExists(offerDTO.getProductId(), offerDTO.getOfferStartDate(), offerDTO.getOfferEndDate());
+            boolean offerOverlaps = sellerProductService.checkIfOfferAlreadyExists(offerDTO.getProductId(), sellerId, offerDTO.getOfferStartDate(), offerDTO.getOfferEndDate());
 
             if(offerOverlaps){
                 model.addAttribute("offerDTO", offerDTO);

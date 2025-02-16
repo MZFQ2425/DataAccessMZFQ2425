@@ -36,7 +36,7 @@
 </div>
 
 <div class="container">
-    <h2>Add offer</h2>
+    <h2 style="margin-top:0px">Add offer</h2>
 
     <div class="toast-container" id="toastContainer"></div>
 
@@ -53,24 +53,42 @@
                     <option th:value="${prod.productId}" th:text="${prod.productName}" th:selected="${prod.productId == offerDTO.productId}"></option>
                 </th:block>
             </select>
+            <ul  style="list-style-type: none; padding-left:0px">
+                <li th:each="error : ${#fields.errors('productId')}" class="error" th:text="${error}"></li>
+            </ul>
         </div>
 
-        <div id="productInfo" class="form-group">
+        <div id="productInfo" class="form-group div-info">
         </div>
 
         <div class="form-group">
             <label for="offerStartDate">From:</label>
             <input type="date" id="offerStartDate" name="offerStartDate" th:value="${offerDTO.offerStartDate}">
+            <ul  style="list-style-type: none; padding-left:0px">
+                <li th:each="error : ${#fields.errors('offerStartDate')}" class="error" th:text="${error}"></li>
+            </ul>
         </div>
 
         <div class="form-group">
             <label for="offerEndDate">To:</label>
             <input type="date" id="offerEndDate" name="offerEndDate" th:value="${offerDTO.offerEndDate}">
+            <ul  style="list-style-type: none; padding-left:0px">
+                <li th:each="error : ${#fields.errors('offerEndDate')}" class="error" th:text="${error}"></li>
+            </ul>
+        </div>
+
+        <div id="discountInfo" class="form-group div-info">
         </div>
 
         <div class="form-group">
             <label for="discount">Discount:</label>
             <input type="number" id="discount" name="discount" min="0" step="1" th:value="${offerDTO.discount}" placeholder="Enter discount" required>
+            <ul  style="list-style-type: none; padding-left:0px">
+                <li th:each="error : ${#fields.errors('discount')}" class="error" th:text="${error}"></li>
+            </ul>
+        </div>
+
+        <div id="priceInfo" class="form-group div-info">
         </div>
 
         <button type="submit" class="ok-btn">Add</button>
@@ -78,7 +96,7 @@
 
 </div>
 
-<script type="text/javascript" src="/api-rest/js/js.js"></script>
+<script type="text/javascript" src="/api-rest/js/offer_js.js"></script>
 
 </body>
 </html>

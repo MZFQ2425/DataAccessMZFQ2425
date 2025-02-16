@@ -27,13 +27,12 @@ public class SellerProductService  {
         return productsList;
     }
 
-    public boolean checkIfOfferAlreadyExists(int productId, LocalDate startDate, LocalDate endDate){
-        return sellerProductDAO.checkIfAlreadyExists(productId, startDate, endDate);
+    public boolean checkIfOfferAlreadyExists(int productId, int sellerId, LocalDate startDate, LocalDate endDate){
+        return sellerProductDAO.checkIfAlreadyExists(productId, sellerId, startDate, endDate);
     }
     public boolean isDiscountValid(LocalDate startDate, LocalDate endDate, int discountEntered){
 
-        // Calcular la diferencia en días
-        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate) +1;
 
         int maxDiscount = 10;
         if (daysBetween >= 30) {
@@ -70,7 +69,5 @@ public class SellerProductService  {
     public int updateSellerProduct(int productId, int sellerId, Double offerPrice, LocalDate offerStartDate, LocalDate offerEndDate){
         return sellerProductDAO.updateSellerProduct(productId, sellerId, offerPrice, offerStartDate, offerEndDate);
     }
-
-    //TODO: mostrar ofertas activas para el product seleccionado
 
 }

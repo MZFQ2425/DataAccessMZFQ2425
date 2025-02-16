@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .formLogin()
                 .loginPage("/login")
-                .failureUrl("/login?error=true") // Redirige a /login?error=true si la autenticación falla
+                .failureUrl("/login?error=true")
                 .permitAll()
             .and()
             .logout()
