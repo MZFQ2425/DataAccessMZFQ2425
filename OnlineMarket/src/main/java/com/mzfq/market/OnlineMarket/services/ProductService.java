@@ -2,17 +2,13 @@ package com.mzfq.market.OnlineMarket.services;
 
 import com.mzfq.market.OnlineMarket.models.dao.IProductEntityDAO;
 import com.mzfq.market.OnlineMarket.models.dao.ISellerProductEntityDAO;
-import com.mzfq.market.OnlineMarket.models.entities.CategoryEntity;
 import com.mzfq.market.OnlineMarket.models.entities.ProductEntity;
 import com.mzfq.market.OnlineMarket.models.entities.SellerProductEntity;
 import com.mzfq.market.OnlineMarket.models.entities.SellersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -64,4 +60,5 @@ public class ProductService {
 
         sellerProductRepository.save(sellerProduct);
     }
+
 }

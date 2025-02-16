@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "seller_products")
@@ -32,10 +33,10 @@ public class SellerProductEntity {
     private Double offerPrice;
 
     @Column(name = "offer_start_date")
-    private LocalDate offerStartDate;
+    private Date offerStartDate;
 
     @Column(name = "offer_end_date")
-    private LocalDate offerEndDate;
+    private Date offerEndDate;
 
     @NotNull(message = "Stock cannot be null!")
     @Min(value = 0, message = "Stock must be greater than or equal to 0!")
@@ -57,11 +58,11 @@ public class SellerProductEntity {
     public Double getOfferPrice() { return offerPrice; }
     public void setOfferPrice(Double offerPrice) { this.offerPrice = offerPrice; }
 
-    public LocalDate getOfferStartDate() { return offerStartDate; }
-    public void setOfferStartDate(LocalDate offerStartDate) { this.offerStartDate = offerStartDate; }
+    public Date getOfferStartDate() { return offerStartDate; }
+    public void setOfferStartDate(Date offerStartDate) { this.offerStartDate = offerStartDate; }
 
-    public LocalDate getOfferEndDate() { return offerEndDate; }
-    public void setOfferEndDate(LocalDate offerEndDate) { this.offerEndDate = offerEndDate; }
+    public Date getOfferEndDate() { return offerEndDate; }
+    public void setOfferEndDate(Date offerEndDate) { this.offerEndDate = offerEndDate; }
 
     public int getStock() { return stock; }
     public void setStock(int stock) { this.stock = stock; }

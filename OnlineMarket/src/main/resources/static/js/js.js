@@ -2,6 +2,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const errorElement = document.getElementById("toastMessage");
     const successElement = document.getElementById("toastSuccess");
 
+    if (errorElement) {
+        showToast(errorElement.getAttribute("data-message"), "error");
+    }
+
+    if (successElement) {
+        showToast(successElement.getAttribute("data-message"), "success");
+    }
+
     if(document.getElementsByClassName("product-page").length > 0){
         const categorySelect = document.getElementById("categoryId");
         const productSelect = document.getElementById("productId");
@@ -35,15 +43,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         });
+    }else if(document.getElementsByClassName("offer-page").length > 0){
+        //TODO:
     }
 
-    if (errorElement) {
-        showToast(errorElement.getAttribute("data-message"), "error");
-    }
-
-    if (successElement) {
-        showToast(successElement.getAttribute("data-message"), "success");
-    }
+    document.querySelectorAll('input[type="date"]').forEach(input => {
+        input.addEventListener('click', function() {
+            this.showPicker();
+        });
+    });
 });
 
 // Función para cargar las categorías disponibles para el vendedor

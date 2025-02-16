@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add to Store</title>
+    <title>Add Offer</title>
     <link rel="stylesheet" href="/api-rest/css/styles.css">
     <style>
-        .sidebar img[src*="boxSearch.png"] {
+        .sidebar img[src*="boxSell.png"] {
             opacity: 1;
         }
         .sidebar img.logout-img {
@@ -19,7 +19,7 @@
         }
     </style>
 </head>
-<body class="product-page">
+<body class="offer-page">
 <div class="sidebar">
     <a th:href="@{/}">
         <img src="/api-rest/icons/user.png" alt="User">
@@ -36,7 +36,7 @@
 </div>
 
 <div class="container">
-    <h2>Add to Store</h2>
+    <h2>Add offer</h2>
 
     <div class="toast-container" id="toastContainer"></div>
 
@@ -44,38 +44,33 @@
 
     <div th:if="${okMessage}" th:attr="data-message=${okMessage}" id="toastSuccess" style="display: none;"></div>
 
-    <form id="addProductForm" th:action="@{/products/add}" method="post" th:object="${ProductDTO}">
+    <form id="addOfferForm" th:action="@{/offer/add}" method="post" th:object="${offerDTO}">
         <div class="form-group">
-            <label for="categoryId">Category:</label>
-            <select id="categoryId" name="categoryId" required>
-                <option value="">Select a category</option>
-                <th:block th:each="category : ${categories}">
-                    <option th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+            <label for="productId">Product:</label>
+            <select id="productId" name="productId" required>
+                <option value="">Select a product</option>
+                <th:block th:each="prod : ${product}">
+                    <option th:value="${prod.productId}" th:text="${prod.productName}" th:selected="${prod.productId == offerDTO.productId}"></option>
                 </th:block>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="productId">Product:</label>
-            <select id="productId" name="productId" required>
-                <option value="">Select a product</option>
-            </select>
+            <label for="offerStartDate">From:</label>
+            <input type="date" id="offerStartDate" name="offerStartDate" th:value="${offerDTO.offerStartDate}">
         </div>
 
         <div class="form-group">
-            <label for="stock">Stock:</label>
-            <div class="slider-container">
-                <input type="range" id="stock" name="stock" min="0" max="25" value="0" disabled>
-                <span class="units" id="stockValue">0</span>
-            </div>
+            <label for="offerEndDate">To:</label>
+            <input type="date" id="offerEndDate" name="offerEndDate" th:value="${offerDTO.offerEndDate}">
         </div>
 
         <div class="form-group">
-            <label for="price">Price:</label>
-            <input type="number" id="price" name="price" min="0" max="9999999999,99" step="0.01" placeholder="Enter price" required disabled>
+            <label for="discount">Discount:</label>
+            <input type="number" id="discount" name="discount" min="0" step="1" th:value="${offerDTO.discount}" placeholder="Enter discount" required>
         </div>
 
-        <button type="submit" class="ok-btn" disabled>Add</button>
+        <button type="submit" class="ok-btn">Add</button>
     </form>
 
 </div>
