@@ -48,11 +48,14 @@
         <div class="form-group">
             <label for="productId">Product:</label>
             <select id="productId" name="productId" required>
-                <option value="">Select a product</option>
+                <option value="-1">Select a product</option>
                 <th:block th:each="prod : ${product}">
                     <option th:value="${prod.productId}" th:text="${prod.productName}" th:selected="${prod.productId == offerDTO.productId}"></option>
                 </th:block>
             </select>
+        </div>
+
+        <div id="productInfo" class="form-group">
         </div>
 
         <div class="form-group">

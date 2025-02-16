@@ -107,4 +107,17 @@ public class OfferController {
             return "offer";
         }
     }
+
+    @GetMapping(value = "/json", produces = "application/json")
+    @ResponseBody
+    public SellerProductEntity getDataJson(@RequestParam Integer productId) {
+        String cif = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Integer sellerId = sellersService.getSellerByCif(cif).getSellerId();
+
+        SellerProductEntity sellerProduct = sellerProductService.getSellerProductByProductAndSellerID(productId, sellerId);
+
+        System.out.println(sellerProduct.getOfferEndDate());
+
+        return sellerProduct;
+    }
 }
