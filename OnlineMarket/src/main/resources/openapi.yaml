@@ -1,0 +1,485 @@
+openapi: 3.0.0
+info:
+  title: OnlineMarket API
+  description: OnlineMarket Final Assessment API documentation
+  version: "1.0.0"
+servers:
+  - url: https://localhost/api-rest
+    description: Online Market documentation for the final Assessment - MZFQ
+paths:
+  /sellers/update:
+    post:
+      tags:
+        - sellers-controller
+      summary: Update seller
+      description: Updates the seller's information.
+      operationId: updateSeller
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SellersEntity'
+      responses:
+        '302':
+          description: Seller successfully updated.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '404':
+          description: Seller not found.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Error occurred while updating the seller.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '400':
+          description: Validation error on fields.
+          content:
+            '*/*':
+              schema:
+                type: string
+
+  /products/add:
+    post:
+      tags:
+        - products-controller
+      summary: Add product to store
+      description: Adds a product to the seller's store.
+      operationId: addProductToStore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '302':
+          description: Product added successfully.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '400':
+          description: Validation error on fields.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '500':
+          description: Error when trying to add the product.
+          content:
+            '*/*':
+              schema:
+                type: string
+  /offer/add:
+    post:
+      tags:
+        - offer-controller
+      summary: Add product to store
+      description: Adds an offer for a product to the seller's store.
+      operationId: addProductToStore_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferDTO'
+      responses:
+        '500':
+          description: Error when trying to add the offer.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '409':
+          description: the offer already exists for another product.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '400':
+          description: Validation error on fields.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '302':
+          description: Offer successfully added.
+          content:
+            '*/*':
+              schema:
+                type: string
+  /login:
+    get:
+      tags:
+        - login-controller
+      summary: Show the login page
+      description: Displays the login form to the user.
+      operationId: showLoginForm
+      parameters:
+        - name: error
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: expired
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+    post:
+      tags:
+        - login-controller
+      summary: Manage user login
+      description: Validates user credentials and logs the user in.
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginDTO'
+      responses:
+        '401':
+          description: Incorrect credentials.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '400':
+          description: Invalid credentials provided.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '302':
+          description: Redirects to the homepage after successful login.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '404':
+          description: CIF not found.
+          content:
+            '*/*':
+              schema:
+                type: string
+
+  /sellers/{cif}:
+    get:
+      tags:
+        - sellers-controller
+      summary: Get seller by CIF
+      description: Retrieves a seller's information based on their CIF.
+      operationId: getSellerByCif
+      parameters:
+        - name: cif
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '404':
+          description: Seller not found.
+          content:
+            '*/*':
+              schema:
+                type: string
+        '200':
+          description: Seller found and information returned.
+          content:
+            '*/*':
+              schema:
+                type: string
+
+  /products:
+    get:
+      tags:
+        - products-controller
+      summary: Get products page
+      description: Displays the products page with available categories.
+      operationId: getProductsPage
+      parameters:
+        - name: categoryId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+
+  /products/json:
+    get:
+      tags:
+        - products-controller
+      summary: Get categories in JSON
+      description: Returns available categories in JSON format.
+      operationId: getCategoriesJson
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryEntity'
+
+  /products/jsonProducts:
+    get:
+      tags:
+        - products-controller
+      summary: Get products by category in JSON
+      description: Returns products not in store for a specific category in JSON format.
+      operationId: getProductsJson
+      parameters:
+        - name: categoryId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductEntity'
+
+  /offer:
+    get:
+      tags:
+        - offer-controller
+      summary: Get available products
+      description: Displays a list of available products in the seller's store.
+      operationId: getAvailableProducts
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+
+  /offer/json:
+    get:
+      tags:
+        - offer-controller
+      summary: Get product data
+      description: Returns the data of a specific product in JSON format.
+      operationId: getDataJson
+      parameters:
+        - name: productId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SellerProductEntity'
+
+  /:
+    get:
+      tags:
+        - view-controller
+      summary: Get index page
+      description: Retrieves the index page for the seller.
+      operationId: index
+      responses:
+        '200':
+          description: Index page retrieved successfully.
+          content:
+            '*/*':
+              schema:
+                type: string
+
+components:
+  schemas:
+    SellersEntity:
+      required:
+        - cif
+        - email
+        - name
+        - plainPassword
+      type: object
+      properties:
+        sellerId:
+          type: integer
+          format: int32
+        cif:
+          maxLength: 20
+          minLength: 0
+          type: string
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+        businessName:
+          maxLength: 100
+          minLength: 0
+          type: string
+        phone:
+          maxLength: 100
+          minLength: 0
+          pattern: '^\\d{3}-\\d{3}-\\d{3}$'
+          type: string
+        email:
+          maxLength: 90
+          minLength: 0
+          type: string
+        plainPassword:
+          maxLength: 50
+          minLength: 6
+          type: string
+        password:
+          type: string
+
+    ProductDTO:
+      required:
+        - categoryId
+        - productId
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int32
+        categoryId:
+          type: integer
+          format: int32
+        stock:
+          minimum: 0
+          type: integer
+          format: int32
+        price:
+          minimum: 0.0
+          exclusiveMinimum: false
+          type: number
+          format: double
+
+    OfferDTO:
+      required:
+        - discount
+        - offerEndDate
+        - offerStartDate
+        - productId
+      type: object
+      properties:
+        productId:
+          minimum: 1
+          type: integer
+          format: int32
+        offerStartDate:
+          type: string
+          format: date
+        offerEndDate:
+          type: string
+          format: date
+        discount:
+          maximum: 50
+          minimum: 0
+          type: integer
+          format: int32
+
+    LoginDTO:
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          maxLength: 50
+          minLength: 3
+          type: string
+        password:
+          maxLength: 2147483647
+          minLength: 6
+          type: string
+
+    CategoryEntity:
+      required:
+        - categoryName
+      type: object
+      properties:
+        categoryId:
+          type: integer
+          format: int32
+        categoryName:
+          maxLength: 50
+          minLength: 0
+          type: string
+
+    ProductEntity:
+      required:
+        - productName
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int32
+        productName:
+          maxLength: 100
+          minLength: 2
+          type: string
+        description:
+          type: string
+        active:
+          type: boolean
+        categoryId:
+          type: integer
+          format: int32
+
+    SellerProductEntity:
+      required:
+        - price
+        - stock
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        seller:
+          $ref: '#/components/schemas/SellersEntity'
+        product:
+          $ref: '#/components/schemas/ProductEntity'
+        price:
+          minimum: 0
+          type: number
+          format: double
+        offerPrice:
+          minimum: 0
+          type: number
+          format: double
+        offerStartDate:
+          type: string
+          format: date-time
+        offerEndDate:
+          type: string
+          format: date-time
+        stock:
+          minimum: 0
+          type: integer
+          format: int32

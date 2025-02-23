@@ -4,6 +4,9 @@ import com.mzfq.market.OnlineMarket.models.dto.LoginDTO;
 import com.mzfq.market.OnlineMarket.models.entities.SellersEntity;
 import com.mzfq.market.OnlineMarket.services.SellersService;
 import com.mzfq.market.OnlineMarket.utils.HashUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ public class LoginController {
     private SellersService sellersService;
 
     // method to show the login page
+    @Operation(summary = "Show the login page", description = "Displays the login form to the user.")
     @GetMapping("/login")
     public String showLoginForm(@RequestParam(value = "error", required = false) String error,
                                 @RequestParam(value = "expired", required = false) String expired,
@@ -38,6 +42,13 @@ public class LoginController {
     }
 
     // method to manage the user login
+    @Operation(summary = "Manage user login", description = "Validates user credentials and logs the user in.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "Redirects to the homepage after successful login."),
+            @ApiResponse(responseCode = "400", description = "Invalid credentials provided."),
+            @ApiResponse(responseCode = "404", description = "CIF not found."),
+            @ApiResponse(responseCode = "401", description = "Incorrect credentials.")
+    })
     @PostMapping("/login")
     public String login(@Valid LoginDTO loginDTO, BindingResult result, Model model) {
 

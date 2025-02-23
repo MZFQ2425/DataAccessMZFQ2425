@@ -6,6 +6,9 @@ import com.mzfq.market.OnlineMarket.models.entities.ProductEntity;
 import com.mzfq.market.OnlineMarket.services.CategoryService;
 import com.mzfq.market.OnlineMarket.services.ProductService;
 import com.mzfq.market.OnlineMarket.services.SellersService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -31,6 +34,7 @@ public class ProductsController {
     @Autowired
     private SellersService sellersService;
 
+    @Operation(summary = "Get products page", description = "Displays the products page with available categories.")
     @GetMapping
     public String getProductsPage(@RequestParam(value = "categoryId", required = false) Integer categoryId, Model model) {
         String cif = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -48,6 +52,7 @@ public class ProductsController {
         return "product";
     }
 
+    @Operation(summary = "Get categories in JSON", description = "Returns available categories in JSON format.")
     @GetMapping(value = "/json", produces = "application/json")
     @ResponseBody
     public List<CategoryEntity> getCategoriesJson() {
@@ -58,6 +63,7 @@ public class ProductsController {
         return availableCategories;
     }
 
+    @Operation(summary = "Get products by category in JSON", description = "Returns products not in store for a specific category in JSON format.")
     @GetMapping(value="/jsonProducts", produces = "application/json")
     @ResponseBody
     public List<ProductEntity> getProductsJson(@RequestParam Integer categoryId) {
@@ -69,6 +75,12 @@ public class ProductsController {
         return availableProducts;
     }
 
+    @Operation(summary = "Add product to store", description = "Adds a product to the seller's store.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "Product added successfully."),
+            @ApiResponse(responseCode = "400", description = "Validation error on fields."),
+            @ApiResponse(responseCode = "500", description = "Error when trying to add the product.")
+    })
     @PostMapping("/add")
     public String addProductToStore(
             @ModelAttribute("ProductDTO") @Valid ProductDTO productDTO,

@@ -6,6 +6,9 @@ import com.mzfq.market.OnlineMarket.models.entities.SellerProductEntity;
 import com.mzfq.market.OnlineMarket.services.ProductService;
 import com.mzfq.market.OnlineMarket.services.SellerProductService;
 import com.mzfq.market.OnlineMarket.services.SellersService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -31,6 +34,7 @@ public class OfferController {
     @Autowired
     private ProductService productService;
 
+    @Operation(summary = "Get available products", description = "Displays a list of available products in the seller's store.")
     @GetMapping
     public String getAvailableProducts(Model model) {
         String cif = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -48,6 +52,13 @@ public class OfferController {
         return "offer";
     }
 
+    @Operation(summary = "Add product to store", description = "Adds an offer for a product to the seller's store.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "Offer successfully added."),
+            @ApiResponse(responseCode = "400", description = "Validation error on fields."),
+            @ApiResponse(responseCode = "409", description = "The offer already exists for another product."),
+            @ApiResponse(responseCode = "500", description = "Error when trying to add the offer.")
+    })
     @PostMapping("/add")
     public String addProductToStore(
         @ModelAttribute("offerDTO") @Valid OfferDTO offerDTO,
@@ -108,6 +119,7 @@ public class OfferController {
         }
     }
 
+    @Operation(summary = "Get product data", description = "Returns the data of a specific product in JSON format.")
     @GetMapping(value = "/json", produces = "application/json")
     @ResponseBody
     public SellerProductEntity getDataJson(@RequestParam Integer productId) {
