@@ -23,6 +23,13 @@ public class SellersService {
     }
 
     public void updateSeller(SellersEntity seller){
+        if (seller.getName() == null || seller.getName().isEmpty()) {
+            throw new RuntimeException("Name cannot be empty");
+        }
+        if (seller.getPlainPassword() == null || seller.getPlainPassword().isEmpty()) {
+            throw new RuntimeException("Password cannot be empty");
+        }
+
         SellersEntity sellerExists = sellersDAO.findByCif(seller.getCif());
         HashUtil hash = new HashUtil();
 
@@ -45,14 +52,17 @@ public class SellersService {
     }
 
     public boolean checkIfEqual(SellersEntity original, SellersEntity sellerChanged){
+        if (original == null || sellerChanged == null) {
+            return false;
+        }
         if(original.getName().equals(sellerChanged.getName()) &&
             original.getBusinessName().equals(sellerChanged.getBusinessName()) &&
             original.getEmail().equals(sellerChanged.getEmail()) &&
             original.getPhone().equals(sellerChanged.getPhone()) &&
             original.getPlainPassword().equals(sellerChanged.getPlainPassword())){
-            return false;
-        }else{
             return true;
+        }else{
+            return false;
         }
     }
 }

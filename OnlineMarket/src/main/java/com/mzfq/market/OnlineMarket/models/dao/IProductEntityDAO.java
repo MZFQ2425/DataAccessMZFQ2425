@@ -1,7 +1,6 @@
 package com.mzfq.market.OnlineMarket.models.dao;
 
 import com.mzfq.market.OnlineMarket.models.entities.ProductEntity;
-import com.mzfq.market.OnlineMarket.models.entities.SellerProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
