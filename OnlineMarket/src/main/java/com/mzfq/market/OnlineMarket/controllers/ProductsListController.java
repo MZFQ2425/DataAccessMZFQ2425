@@ -1,5 +1,6 @@
 package com.mzfq.market.OnlineMarket.controllers;
 
+import com.mzfq.market.OnlineMarket.models.dto.OfferDTO;
 import com.mzfq.market.OnlineMarket.models.dto.ProductDTO;
 import com.mzfq.market.OnlineMarket.models.dto.ProductListDTO;
 import com.mzfq.market.OnlineMarket.models.entities.CategoryEntity;
@@ -43,7 +44,7 @@ public class ProductsListController {
 
     //@Operation(summary = "Get products list page", description = "Displays the products list page associated to logged in seller.")
     @GetMapping
-    public String getProductsListPage(Model model) {
+    public String getProductsListPage(@RequestParam(value = "isChecked", required = false) String isChecked, Model model) {
         String cif = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         Integer sellerId = sellersService.getSellerByCif(cif).getSellerId();
 
@@ -54,7 +55,16 @@ public class ProductsListController {
         for(ProductEntity product : productList){
             int idProduct = product.getProductId();
 
-            SellerProductEntity sellerProduct = sellerProductService.getSellerProductByProductAndSellerID(idProduct,sellerId);
+            SellerProductEntity sellerProduct = null;
+            if(isChecked!=null){
+                if(isChecked.equals("on")){
+                    sellerProduct = sellerProductService.getSellerProductByProductAndSellerIDActiveOffers(idProduct,sellerId);
+                }else{
+                    sellerProduct = sellerProductService.getSellerProductByProductAndSellerID(idProduct,sellerId);
+                }
+            }else{
+                sellerProduct = sellerProductService.getSellerProductByProductAndSellerID(idProduct,sellerId);
+            }
 
             if(sellerProduct!=null){
                 ProductListDTO completeProduct = new ProductListDTO();
@@ -68,6 +78,7 @@ public class ProductsListController {
                     completeProduct.setOfferPrice(sellerProduct.getOfferPrice());
                 }
                 completeProduct.setCategoryName(product.getCategory().getCategoryName());
+                completeProduct.setChecked(false);
 
                 newProductListDTO.add(completeProduct);
             }
@@ -77,5 +88,4 @@ public class ProductsListController {
 
         return "productList";
     }
-
 }

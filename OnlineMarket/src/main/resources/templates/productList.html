@@ -6,9 +6,9 @@
     <title>Add Offer</title>
     <link rel="stylesheet" href="/api-rest/css/styles.css">
     <style>
-        .sidebar img[src*="boxSell.png"] {
+        /*.sidebar img[src*="boxSell.png"] {
             opacity: 1;
-        }
+        }*/
         .sidebar img.logout-img {
             opacity: 0.7;
             transition: opacity 0.3s;
@@ -16,6 +16,9 @@
         }
         .sidebar img.logout-img:hover {
             opacity: 1;
+        }
+        td{
+            padding:10px;
         }
     </style>
 </head>
@@ -28,6 +31,7 @@
         <img src="/api-rest/icons/boxSearch.png" alt="Search">
     </a>
     <a th:href="@{/offer}"><img src="/api-rest/icons/boxSell.png" alt="Search"></a>
+    <a th:href="@{/productList}">Product List</a>
     <form action="#" th:action="@{/logout}" method="post">
         <button type="submit" class="logout-btn">
             <img src="/api-rest/icons/exit.png" alt="Exit" class="logout-img">
@@ -43,15 +47,15 @@
     <div th:if="${koMessage}" th:attr="data-message=${koMessage}" id="toastMessage" style="display: none;"></div>
 
     <div th:if="${okMessage}" th:attr="data-message=${okMessage}" id="toastSuccess" style="display: none;"></div>
-    <form>
-        <table>
+    <form method="get">
+        <table style ="width:100%">
             <thead>
                 <tr>
                     <td>
                         Name
                     </td>
                     <td>
-                        Price
+                        <span id="text_price">Price</span>
                     </td>
                     <td>
                         Category
@@ -74,8 +78,25 @@
             </th:block>
             </tbody>
         </table>
+        <input type="checkbox" id="showOffers" name="isChecked" onChange="this.form.submit()"/> Show only offers
     </form>
 </div>
+<script>
+    //script to maintain checked checkbox when refreshed
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    try{
+        var paramValue = url.searchParams.get("isChecked");
+        if(paramValue!=null && paramValue=="on"){
+            document.getElementById("showOffers").checked = true;
+            document.getElementById("text_price").innerText = "";
+            document.getElementById("text_price").innerText = "Offer price";
+        }else{
+            document.getElementById("showOffers").checked = false;
+        }
+    } catch(Exception){
+        document.getElementById("showOffers").checked = false;
+    }
+</script>
 </body>
 </html>
-@

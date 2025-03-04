@@ -16,17 +16,20 @@ public class ProductListDTO {
     @NotNull(message = "Category name cannot be empty!")
     private String categoryName;
 
+    private boolean isChecked;
+
     public ProductListDTO(){
 
     }
 
-    public ProductListDTO(int productId, int categoryId, double price, double offerPrice, String productName, String categoryName) {
+    public ProductListDTO(int productId, int categoryId, double price, double offerPrice, String productName, String categoryName, boolean isChecked) {
         this.productId = productId;
         this.categoryId = categoryId;
         this.offerPrice = offerPrice;
         this.price = price;
         this.productName = productName;
         this.categoryName = categoryName;
+        this.isChecked = isChecked;
     }
 
     public int getProductId() {
@@ -75,6 +78,14 @@ public class ProductListDTO {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }
 
