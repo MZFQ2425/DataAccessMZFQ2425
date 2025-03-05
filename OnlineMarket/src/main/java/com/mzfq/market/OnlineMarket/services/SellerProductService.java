@@ -61,6 +61,10 @@ public class SellerProductService  {
         return sellerProductDAO.getSellerProductByIdAndSeller(productId, sellerId);
     }
 
+    public SellerProductEntity getSellerProductByProductAndSellerIDActiveOffers(int productId,int sellerId){
+        return sellerProductDAO.getSellerProductOfferByIdAndSeller(productId, sellerId);
+    }
+
     public Double calculateDiscount (Integer discount, Double price){
         Double discountedPrice = price - (price * discount / 100);
         return discountedPrice;

@@ -65,4 +65,8 @@ public class SellersService {
             return false;
         }
     }
+
+    public List<SellersEntity> getInfoSellersFromProductId(int productId){
+         return sellersDAO.getInfoSellersFromProductId(productId);
+    }
 }

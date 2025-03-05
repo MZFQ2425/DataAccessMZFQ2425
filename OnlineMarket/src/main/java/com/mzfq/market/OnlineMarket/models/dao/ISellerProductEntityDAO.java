@@ -19,6 +19,9 @@ public interface ISellerProductEntityDAO extends JpaRepository<SellerProductEnti
     @Query(value = "SELECT * FROM seller_products WHERE product_id = :productId AND seller_id = :sellerId", nativeQuery = true)
     SellerProductEntity getSellerProductByIdAndSeller(@Param("productId") Integer productId, @Param("sellerId") Integer sellerId);
 
+    @Query(value = "SELECT * FROM seller_products WHERE product_id = :productId AND seller_id = :sellerId AND  ((offer_start_date>=CURRENT_DATE) OR (offer_end_date>=CURRENT_DATE))", nativeQuery = true)
+    SellerProductEntity getSellerProductOfferByIdAndSeller(@Param("productId") Integer productId, @Param("sellerId") Integer sellerId);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE seller_products " +
